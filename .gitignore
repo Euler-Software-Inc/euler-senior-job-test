@@ -1,0 +1,26 @@
+# dependencies
+node_modules/
+
+# build output
+web/dist/
+dist/
+*.tsbuildinfo
+
+# env / secrets
+.env
+.env.*
+!.env.example
+
+# logs
+*.log
+npm-debug.log*
+
+# editor / OS
+.DS_Store
+.idea/
+.vscode/
+*.local
+
+# supabase local
+supabase/.branches/
+supabase/.temp/

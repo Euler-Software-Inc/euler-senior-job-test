@@ -1,0 +1,146 @@
+:root {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  color: #1c1c28;
+  background: #f5f6fa;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+a {
+  color: #3b5bdb;
+}
+
+button {
+  font: inherit;
+  padding: 0.45rem 0.8rem;
+  border: 1px solid #c2c8d6;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+  background: #eef1f8;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button.primary {
+  background: #3b5bdb;
+  border-color: #3b5bdb;
+  color: #fff;
+}
+
+button.primary:hover:not(:disabled) {
+  background: #314bc0;
+}
+
+input,
+select {
+  font: inherit;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid #c2c8d6;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.app-shell {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 4rem;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e2e5ee;
+  margin-bottom: 1.25rem;
+}
+
+.nav .brand {
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #e2e5ee;
+  border-radius: 10px;
+  padding: 1rem 1.1rem;
+  margin-bottom: 0.7rem;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.task .meta {
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  background: #eef1f8;
+  border: 1px solid #d7dcea;
+}
+
+.badge.todo { background: #fff4e6; border-color: #ffd8a8; }
+.badge.in_progress { background: #e7f5ff; border-color: #a5d8ff; }
+.badge.done { background: #ebfbee; border-color: #b2f2bb; }
+
+.muted { color: #6b7280; }
+.error { color: #c92a2a; }
+.center { display: flex; justify-content: center; padding: 3rem; }
+
+.auth-card {
+  max-width: 360px;
+  margin: 4rem auto;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 0.8rem;
+}
+
+.field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.toolbar input[type='search'] {
+  flex: 1;
+}

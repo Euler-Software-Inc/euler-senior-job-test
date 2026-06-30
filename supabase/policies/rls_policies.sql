@@ -1,0 +1,78 @@
+-- ===========================================================================
+-- Task 1c — Workspace isolation & roles (YOUR WORK GOES HERE)
+-- ===========================================================================
+-- This file is a STUB. The starter ships with RLS disabled (see
+-- migrations/0001_init.sql) so any signed-in user can touch any workspace's
+-- data. Your job: enforce, at the database level,
+--
+--   1. Isolation — a user only ever sees/affects workspaces they belong to.
+--   2. Roles — admin (manage members + all data), member (create/edit),
+--      viewer (read-only).
+--
+-- Enforce these in RLS policies (server-side). The UI already gates buttons by
+-- role as defense-in-depth, but UI gating alone is NOT acceptable — the rules
+-- must hold even if someone calls the API directly with the anon key.
+--
+-- The skeleton below is one reasonable shape. You do not have to follow it;
+-- adapt as you see fit, and justify your tenancy strategy in your write-up.
+-- Add automated tests proving the rules (see
+-- web/src/test/access-control.example.test.ts).
+--
+-- Apply this file in the Supabase SQL editor once you've filled it in.
+-- ---------------------------------------------------------------------------
+
+-- A SECURITY DEFINER helper avoids infinite recursion when a policy on one
+-- table needs to read `memberships`. Decide whether you need this.
+--
+-- create or replace function public.is_workspace_member(ws uuid)
+-- returns boolean
+-- language sql
+-- security definer
+-- set search_path = public
+-- as $$
+--   select exists (
+--     select 1 from public.memberships m
+--     where m.workspace_id = ws and m.user_id = auth.uid()
+--   );
+-- $$;
+--
+-- create or replace function public.has_workspace_role(ws uuid, roles public.user_role[])
+-- returns boolean
+-- language sql
+-- security definer
+-- set search_path = public
+-- as $$
+--   select exists (
+--     select 1 from public.memberships m
+--     where m.workspace_id = ws and m.user_id = auth.uid() and m.role = any(roles)
+--   );
+-- $$;
+
+-- Turn RLS ON for every table (with no policies this denies all access — you
+-- must add the policies below).
+-- alter table public.workspaces  enable row level security;
+-- alter table public.memberships enable row level security;
+-- alter table public.tasks       enable row level security;
+
+-- TASKS ---------------------------------------------------------------------
+-- TODO: SELECT  — only rows in workspaces the user belongs to.
+-- TODO: INSERT  — only into workspaces where the user is admin/member.
+-- TODO: UPDATE  — only admin/member, only within their workspace.
+-- TODO: DELETE  — decide who can delete (e.g. admin only) and scope it.
+--
+-- example shape (complete it):
+-- create policy tasks_select on public.tasks for select to authenticated
+--   using ( /* user is a member of tasks.workspace_id */ );
+
+-- MEMBERSHIPS ---------------------------------------------------------------
+-- TODO: SELECT — a user can see memberships of workspaces they belong to.
+-- TODO: write  — only admins manage memberships (add/remove/change role),
+--                scoped to their workspace. Watch for recursion here.
+
+-- WORKSPACES ----------------------------------------------------------------
+-- TODO: SELECT — only workspaces the user belongs to.
+-- TODO: decide on create/rename/delete rules and who may do them.
+
+-- Reminder: the service-role key bypasses RLS entirely. Never use it from the
+-- browser. Privileged server-only work belongs in an Edge Function
+-- (see supabase/functions/).
