@@ -24,45 +24,45 @@ Welcome, and thanks for taking the time. This isn't a puzzle test — every task
 
 ---
 
-## Task 1 — Stabilize & extend the app · ~6h
+## Task 1 — Stabilize & extend the app
 
 The main task, all on the same codebase, in three parts.
 
-**1a · Bug hunt (~1.5h).** The app misbehaves in a couple of ways:
+**1a · Bug hunt.** The app misbehaves in a couple of ways:
 - The task list sometimes shows results from a *previous* search.
 - The app gets noticeably sluggish after switching between workspaces several times.
 
-Find the **root cause** of each, fix them, and note what each bug actually was in your PR description.
+Find the **root cause** of each, fix them, and note what each bug actually was in `SOLUTION.md`.
 
-**1b · Performance (~1h).** Find and fix at least one *real* performance issue beyond the bugs above. Tell us how you spotted it and what you changed.
+**1b · Performance.** Find and fix at least one *real* performance issue beyond the bugs above. In `SOLUTION.md`, tell us how you spotted it and what you changed.
 
-**1c · Multi-tenancy & roles (~3.5h).** The app has no real access control yet. Add:
+**1c · Multi-tenancy & roles.** The app has no real access control yet. Add:
 - **Workspace isolation** — a user only ever sees their own workspace's data, enforced **at the database level with Supabase row-level security (RLS)**, not just hidden in the UI.
 - **Roles** — *Admin* (manage members + all data), *Member* (create/edit), *Viewer* (read-only), enforced through your **RLS policies**, with the UI reflecting them as defense-in-depth.
 
-Add automated tests for the access rules (e.g. signed in as different users/roles), and include a short note justifying your tenancy strategy (e.g. shared tables with RLS vs schema-per-tenant) and why.
+Add automated tests for the access rules (e.g. signed in as different users/roles), and in `SOLUTION.md` include a short note justifying your tenancy strategy (e.g. shared tables with RLS vs schema-per-tenant) and why.
 
-## Task 2 — Review a pull request · ~1h
+## Task 2 — Review a pull request
 
-In `/review/PR.md` you'll find a teammate's proposed change. Review it the way you would on a real PR:
+In `/review/PR.md` you'll find a teammate's proposed change. Review it the way you would on a real PR, and write your review in `/review/PR-response.md`:
 - Give an **overall verdict** (approve / request changes) and flag issues, if any, by severity.
 - Security is part of the bar for any approval here — we don't ship changes that put the product or its data at risk. Weigh it alongside correctness, readability, and maintainability.
 - Not everything that looks off is actually wrong. If something seems suspicious but turns out fine, say so — and say why.
 
-## Task 3 — Migration plan · ~2h
+## Task 3 — Migration plan
 
-Write a short plan in `MIGRATION.md` (~1–2 pages) covering two things:
+Write a short plan in `MIGRATION.md` covering two things:
 1. **Target stack** — recommend the stack you'd take Nimbus forward on, and argue for it: the tradeoffs, and why you'd choose it over the alternatives.
 2. **Data migration** — pick **one specific slice** (e.g. migrating the users or tasks table from the old platform into your Postgres schema) and lay out the steps, the risks, and how you'd avoid downtime or data loss.
 
-## Task 4 — Project walkthrough · ~30 min
+## Task 4 — Project walkthrough
 
 Record a **5–10 minute video** (Loom or similar). **No need to show real or employer code** — just talk us through a project you've worked on:
 - What was the architecture, and one hard technical decision you made?
 - How did you approach **performance, scalability, and security**?
 - What would you do differently today?
 
-Add the video link to your `README`.
+Add the video link to `VIDEO-WALKTHROUGH.md`.
 
 ---
 
@@ -75,12 +75,12 @@ We'll meet for **60–90 minutes** to:
 
 ## Before you submit — checklist
 
-- [ ] Bugs fixed, with a note on what each one was
-- [ ] At least one performance fix, explained
+- [ ] Bugs fixed, with a note on what each one was (`SOLUTION.md`)
+- [ ] At least one performance fix, explained (`SOLUTION.md`)
 - [ ] Workspace isolation + roles working, enforced **at the DB level**, with tests
-- [ ] Tenancy-strategy note included
-- [ ] PR review written, with a verdict
-- [ ] `MIGRATION.md` included
-- [ ] Walkthrough video link in your `README`
+- [ ] Tenancy-strategy note included (`SOLUTION.md`)
+- [ ] PR review written, with a verdict (`review/PR-response.md`)
+- [ ] Migration plan (`MIGRATION.md`)
+- [ ] Walkthrough video link (`VIDEO-WALKTHROUGH.md`)
 
 Stuck on setup or unsure about scope? Reach out to **[contact]**. We'd much rather see how you think than a flawless submission — have fun with it.

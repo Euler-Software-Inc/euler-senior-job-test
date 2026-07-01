@@ -102,40 +102,48 @@ All from inside `web/`:
 
 ## Where each task lives
 
-| Task | Where to look |
-|---|---|
-| **1a — Bugs** | `web/src/components/TaskList.tsx` (search behavior, the auto-refresh effect, the title updater). The symptoms are described in `TASKS.md`. |
-| **1b — Performance** | How tasks are loaded/filtered — start in `web/src/components/TaskList.tsx`. Measure before you fix. |
-| **1c — Multi-tenancy & roles** | `supabase/migrations/0001_init.sql` (RLS is off), `supabase/policies/rls_policies.sql` (your policy work), and UI role-gating in `web/src/components/`. Tests: `web/src/test/`. |
-| **2 — PR review** | [`review/PR.md`](./review/PR.md) |
-| **3 — Migration plan** | Create `MIGRATION.md` at the repo root |
-| **4 — Walkthrough video** | Add your video link to this README |
+Your write-ups and responses already have homes in the repo — just fill them in.
+Code goes in the app; the **explanations** the tasks ask for go in these files.
+
+| Task | Where to work | Where your answer goes |
+|---|---|---|
+| **1a — Bugs** | `web/src/components/TaskList.tsx` (search behavior, the auto-refresh effect, the title updater). Symptoms are in `TASKS.md`. | [`SOLUTION.md`](./SOLUTION.md) → *1a* |
+| **1b — Performance** | How tasks are loaded/filtered — start in `web/src/components/TaskList.tsx`. Measure before you fix. | [`SOLUTION.md`](./SOLUTION.md) → *1b* |
+| **1c — Multi-tenancy & roles** | `supabase/migrations/0001_init.sql` (RLS off), `supabase/policies/rls_policies.sql` (your policy work), UI gating in `web/src/components/`, tests in `web/src/test/`. | [`SOLUTION.md`](./SOLUTION.md) → *1c* |
+| **2 — PR review** | Read [`review/PR.md`](./review/PR.md) | [`review/PR-response.md`](./review/PR-response.md) |
+| **3 — Migration plan** | — | [`MIGRATION.md`](./MIGRATION.md) |
+| **4 — Walkthrough video** | Record a 5–10 min video | [`VIDEO-WALKTHROUGH.md`](./VIDEO-WALKTHROUGH.md) |
 
 ## Project layout
 
 ```
 .
-├── README.md            ← you are here
-├── TASKS.md             ← the assignment (read this)
-├── review/PR.md         ← Task 2: the PR to review
-├── web/                 ← React + Vite + TS app
+├── README.md              ← you are here
+├── TASKS.md               ← the assignment (read this)
+├── SOLUTION.md            ← Task 1 write-up (bugs, perf, tenancy) — fill in
+├── MIGRATION.md           ← Task 3 migration plan — fill in
+├── VIDEO-WALKTHROUGH.md   ← Task 4 video link — fill in
+├── review/
+│   ├── PR.md              ← Task 2: the PR to review (given)
+│   └── PR-response.md     ← Task 2: your review — fill in
+├── web/                   ← React + Vite + TS app
 │   ├── .env.example
 │   └── src/
-│       ├── components/  ← TaskList, TaskItem, Nav, WorkspaceSwitcher
-│       ├── context/     ← AuthContext, WorkspaceContext
-│       ├── pages/       ← Login, Signup, Dashboard
-│       └── test/        ← test setup + RBAC test template
+│       ├── components/    ← TaskList, TaskItem, Nav, WorkspaceSwitcher
+│       ├── context/       ← AuthContext, WorkspaceContext
+│       ├── pages/         ← Login, Signup, Dashboard
+│       └── test/          ← test setup + RBAC test template
 └── supabase/
-    ├── migrations/      ← schema (RLS deliberately disabled)
-    ├── seed.sql         ← 2 workspaces + tasks + membership template
-    ├── policies/        ← RLS policy stubs for Task 1c
-    └── functions/       ← Edge Function scaffold (where server secrets live)
+    ├── migrations/        ← schema (RLS deliberately disabled)
+    ├── seed.sql           ← 2 workspaces + tasks + membership template
+    ├── policies/          ← RLS policy stubs for Task 1c
+    └── functions/         ← Edge Function scaffold (where server secrets live)
 ```
 
 ## Your walkthrough video
 
-<!-- Task 4: paste your Loom (or similar) link here -->
-_Add your 5–10 min walkthrough link here before submitting._
+Add your 5–10 min walkthrough link to [`VIDEO-WALKTHROUGH.md`](./VIDEO-WALKTHROUGH.md)
+before submitting (Task 4).
 
 ---
 
