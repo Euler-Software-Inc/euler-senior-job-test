@@ -1,22 +1,19 @@
-# PR #142 — Add admin bulk-import + rich task descriptions
+# PR #142 — Add bulk task import + rich task descriptions
 
-**Author:** @dt-newhire  ·  **Branch:** `feature/admin-bulk-import` → `main`
+**Author:** @dt-newhire  ·  **Branch:** `feature/bulk-import` → `main`
 
 ## What & why
 
 Two things ops has been asking for:
 
-1. **Bulk import** — paste a list of titles and create them all in one workspace
-   at once. Some of these runs need to touch tasks across workspaces for
-   cleanup, and our normal client kept getting blocked, so I added a dedicated
-   Supabase client that uses the **service-role key** to get it done reliably.
-2. **Rich descriptions** — tasks can now have a Markdown description with a
+1. **Bulk import** — paste a list of titles (one per line) and create them all in
+   the current workspace at once.
+2. **Rich descriptions** — tasks can now carry a Markdown description with a
    rendered preview.
 
-I added `VITE_SUPABASE_SERVICE_ROLE_KEY` to `.env.example` so everyone can run
-the bulk-import locally. Tested manually against my own project and it works.
-
-Would love a review — keen to ship this for the ops team this week. 🙏
+This adds a small dedicated client for the import path plus two new components.
+Config for the new client goes in `.env` (see the `.env.example` change). Tested
+manually against my own project; imports and the preview both work.
 
 ---
 
@@ -31,18 +28,18 @@ index 1a2b3c4..5d6e7f8 100644
  VITE_SUPABASE_URL=https://YOUR-PROJECT-ref.supabase.co
  VITE_SUPABASE_ANON_KEY=your-anon-publishable-key
 +
-+# Needed for the new bulk-import admin features
++# Needed for the new bulk-import feature
 +VITE_SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
 diff --git a/web/src/lib/adminClient.ts b/web/src/lib/adminClient.ts
 new file mode 100644
 index 0000000..9f0a1b2
 --- /dev/null
 +++ b/web/src/lib/adminClient.ts
-@@ -0,0 +1,14 @@
+@@ -0,0 +1,12 @@
 +import { createClient } from '@supabase/supabase-js'
 +
-+// Privileged client for admin/bulk operations. Uses the service-role key so it
-+// isn't blocked by row-level security when we add it later.
++// Dedicated client for the bulk-import path. Uses elevated credentials so large
++// imports and cross-workspace cleanups don't get blocked.
 +const url = import.meta.env.VITE_SUPABASE_URL
 +const serviceRoleKey = import.meta.env.VITE_SUPABASE_SERVICE_ROLE_KEY
 +
@@ -54,7 +51,7 @@ new file mode 100644
 index 0000000..3c4d5e6
 --- /dev/null
 +++ b/web/src/components/BulkImport.tsx
-@@ -0,0 +1,46 @@
+@@ -0,0 +1,44 @@
 +import { useState } from 'react'
 +import { adminClient } from '../lib/adminClient'
 +
@@ -76,7 +73,6 @@ index 0000000..3c4d5e6
 +      setStatus(`Imported ${rows.length} tasks`)
 +      setRaw('')
 +    } catch {
-+      // swallow — keep the UI calm if something goes wrong
 +      setStatus('Done')
 +    }
 +  }
@@ -119,7 +115,6 @@ index 0000000..7a8b9c0
 
 ## Notes for reviewer
 
-- I know we don't have RLS yet — the service-role client is partly to "future
-  proof" against it. Open to other approaches.
-- The Markdown preview runs user input through `DOMPurify` before rendering.
-- Bulk import currently has no row limit; can add one in a follow-up if needed.
+- Follow-ups I'm happy to split out: a row cap and a progress indicator for very
+  large pastes.
+- Open to feedback on the preview styling.

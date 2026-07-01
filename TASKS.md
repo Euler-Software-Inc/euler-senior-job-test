@@ -45,9 +45,9 @@ Add automated tests for the access rules (e.g. signed in as different users/role
 ## Task 2 — Review a pull request · ~1h
 
 In `/review/PR.md` you'll find a teammate's proposed change. Review it the way you would on a real PR:
-- Give an **overall verdict** (approve / request changes) and flag issues by severity.
-- **At least one issue is a genuine security problem** — find it and propose the fix.
-- Not everything that looks off is actually wrong. If something seems suspicious but is fine, say so.
+- Give an **overall verdict** (approve / request changes) and flag issues, if any, by severity.
+- Security is part of the bar for any approval here — we don't ship changes that put the product or its data at risk. Weigh it alongside correctness, readability, and maintainability.
+- Not everything that looks off is actually wrong. If something seems suspicious but turns out fine, say so — and say why.
 
 ## Task 3 — Migration plan · ~2h
 
