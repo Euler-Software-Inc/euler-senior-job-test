@@ -20,12 +20,6 @@ export default function TaskList() {
 
   const canWrite = activeRole === 'admin' || activeRole === 'member'
 
-  // --------------------------------------------------------------------------
-  // PERFORMANCE ISSUE (Task 1b):
-  // This pulls EVERY task in the database to the client on each load and the
-  // current workspace's rows are then filtered out in memory below. It grows
-  // linearly with total tasks across all workspaces, not with what's shown.
-  // --------------------------------------------------------------------------
   const loadTasks = useCallback(async () => {
     setLoading(true)
     const { data, error } = await supabase
@@ -50,11 +44,6 @@ export default function TaskList() {
     [allTasks, activeWorkspaceId],
   )
 
-  // --------------------------------------------------------------------------
-  // BUG (Task 1a): "the app gets sluggish after switching workspaces a few
-  // times." A new auto-refresh interval is started every time the workspace
-  // changes, and nothing ever tears the old one down — they pile up.
-  // --------------------------------------------------------------------------
   useEffect(() => {
     setInterval(() => {
       void loadTasks()
@@ -62,12 +51,6 @@ export default function TaskList() {
     // (no cleanup — the interval is never cleared)
   }, [activeWorkspaceId, loadTasks])
 
-  // --------------------------------------------------------------------------
-  // BUG (Task 1a): "the list sometimes shows results from a previous search."
-  // Every keystroke fires a request and applies whatever comes back. A slow
-  // earlier response can land after a newer one and clobber it. There is no
-  // cancellation or last-write-wins guard.
-  // --------------------------------------------------------------------------
   useEffect(() => {
     const term = search.trim()
     if (!term) {
@@ -85,12 +68,6 @@ export default function TaskList() {
       })
   }, [search, activeWorkspaceId])
 
-  // --------------------------------------------------------------------------
-  // BUG (Task 1a, optional/stale-closure): this title updater is wired up once
-  // and captures the first render's `tasks`, so the count it shows never moves
-  // even as tasks change. (Cleanup is present here — the defect is the empty
-  // dependency array capturing stale state.)
-  // --------------------------------------------------------------------------
   useEffect(() => {
     const id = setInterval(() => {
       document.title = `Nimbus — ${tasks.length} tasks`

@@ -10,9 +10,6 @@ interface Props {
 }
 
 export default function TaskItem({ task, role, onChangeStatus, onDelete }: Props) {
-  // UI gating as defense-in-depth. NOTE: this is the ONLY access control in the
-  // starter — there is no DB-level enforcement yet (that is Task 1c). A viewer
-  // who bypasses the client can still write.
   const canWrite = role === 'admin' || role === 'member'
   const canDelete = role === 'admin'
 
