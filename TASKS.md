@@ -42,6 +42,8 @@ Find the **root cause** of each, fix them, and note what each bug actually was i
 
 Add automated tests for the access rules (e.g. signed in as different users/roles), and in `SOLUTION.md` include a short note justifying your tenancy strategy (e.g. shared tables with RLS vs schema-per-tenant) and why.
 
+Give access to Euler's interviewer as `deveveloper` to the Supabase project you created. Ask him/her for the email to send the invitation.
+
 ## Task 2 — Review a pull request
 
 In `/review/PR.md` you'll find a teammate's proposed change. Review it the way you would on a real PR, and write your review in `/review/PR-response.md`:
